@@ -1,41 +1,87 @@
-samdunne dotfiles
-===============
+# Paul's dotfiles
 
-I use [thoughtbot/dotfiles](https://github.com/thoughtbot/dotfiles) and
-croaky/dotfiles together using the `*.local` convention described in
-thoughtbot/dotfiles.
+[mathias's readme](https://github.com/mathiasbynens/dotfiles/) is awesome. go read it.
 
-Requirements
-------------
+This repo is mostly for me but you're welcome to make suggestions. Mathias's is the project to fork.  I'm mostly catching up to him, @cowboy, and @gf3.
 
-Set zsh as your login shell.
+## install the necessary apps
 
-    chsh -s /bin/zsh
+My basic setup is captured in `install-deps.sh` which adds homebrew, z, nave, etc.
 
-Install [rcm](https://github.com/mike-burns/rcm).
+## private config
 
-    brew tap mike-burns/rcm
-    brew install rcm
+Toss it into a file called `.extra` which you do not commit to this repo and just keep in your `~/`
 
-Install
--------
+I do something nice with my `PATH` there:
 
-Clone onto your laptop:
+```shell
+# PATH like a bawss
+      PATH=/opt/local/bin
+PATH=$PATH:/opt/local/sbin
+PATH=$PATH:/bin
+PATH=$PATH:~/.rvm/bin
+PATH=$PATH:~/code/git-friendly
+# ...
 
-    git clone git://github.com/samdunne/dotfiles.git
+export PATH
+```
 
-Install:
+## Syntax highlighting
 
-    rcup -d dotfiles -x README.md
+…is really important. even for these files.
 
-This will create symlinks for config files in your home directory.
+Install [Dotfiles Syntax Highlighting](https://github.com/mattbanks/dotfiles-syntax-highlighting-st2) via [Sublime Text 2 Package Control](http://wbond.net/sublime_packages/package_control)
 
-You can safely run `rcup` multiple times to update.
 
-What's in it?
--------------
+### Sensible OS X defaults
 
-[git](http://git-scm.com/) configuration:
+When setting up a new Mac, you may want to set some sensible OS X defaults:
 
-* `l` alias for tight, colored, log output.
-* My name and email.
+```bash
+./.osx
+```
+
+## Similar projects
+
+I recommend getting a [`.jshintrc`](https://github.com/jshint/node-jshint/blob/master/.jshintrc) and [`.editorconfig`](http://editorconfig.org/) defined for all your projects.
+
+
+
+
+
+## overview of files
+
+####  Automatic config
+* `.ackrc` - for ack (better than grep)
+* `.vimrc`, `.vim` - vim config, obv.
+
+#### shell environment
+* `.aliases`
+* `.bash_profile`
+* `.bash_prompt`
+* `.bashrc`
+* `.exports`
+* `.functions`
+* `.extra` - not included, explained above
+
+#### manual run
+* `install-deps.sh` - random apps i need installed
+* `.osx` - run on a fresh osx machine
+* `.brew` - homebrew initialization
+
+#### git, brah
+* `.git`
+* `.gitattributes`
+* `.gitconfig`
+* `.gitignore`
+
+* `.inputrc` - config for bash readline
+
+
+## Installation
+
+```bash
+git clone https://github.com/paulirish/dotfiles.git && cd dotfiles && ./sync.sh
+```
+
+To update later on, just run the sync again.
