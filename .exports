@@ -34,3 +34,21 @@ export LC_ALL="en_US.UTF-8";
 
 # Highlight section titles in manual pages
 export LESS_TERMCAP_md="${yellow}";
+
+# proxy settings
+location=`/usr/sbin/networksetup -getcurrentlocation`
+
+if [ "$location" == "work" ]
+then
+  export http_proxy=http://localhost:3128
+  export https_proxy=$http_proxy
+  export no_proxy="10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,localhost"
+fi
+
+if [ "$location" == "home" ]
+then
+  unset http_proxy
+  unset https_proxy
+fi
+
+export rvm_max_time_flag=200

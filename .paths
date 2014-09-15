@@ -13,7 +13,7 @@ export PATH="$HOME/bin/packer:$PATH"
 
 # chef-repo to path
 export PATH="$HOME/chef-repo:$PATH"
-alias knife=knife -c "$HOME/chef-repo/.chef/knife.rb"
+# alias knife=knife -c "$HOME/chef-repo/.chef/knife.rb"
 
 # gvm
 export PATH="$HOME/.gvm/bin/gvm-init.sh:$PATH"

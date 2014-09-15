@@ -1,9 +1,8 @@
-# up to you (me) if you want to run this as a file or copy paste at your leisure
-
+#!/bin/bash
 
 # https://github.com/jamiew/git-friendly
 # the `push` command which copies the github compare URL to my clipboard is heaven
-bash < <( curl https://raw.github.com/jamiew/git-friendly/master/install.sh)
+bash < <(curl https://raw.github.com/jamiew/git-friendly/master/install.sh)
 
 # https://rvm.io
 # rvm for the rubiess
@@ -16,7 +15,7 @@ npm install -g nave
 
 # homebrew!
 # you need the code CLI tools YOU FOOL.
-ruby <(curl -fsSkL raw.github.com/mxcl/homebrew/go/install)
+# ruby <(curl -fsSkL raw.github.com/mxcl/homebrew/go/install)
 
 # for the c alias (syntax highlighted cat)
 sudo easy_install Pygments
