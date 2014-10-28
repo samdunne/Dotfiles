@@ -145,3 +145,7 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
+
+[user]
+  name = "Sam Dunne"
+  email = "sam.dunne@paddypower.com"

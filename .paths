@@ -1,3 +1,6 @@
+# rvm
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
 # ensure dotfiles bin directory is loaded first
 export PATH="$HOME/.bin:/usr/local/bin:$PATH"
 
@@ -13,14 +16,17 @@ export PATH="$HOME/bin/packer:$PATH"
 
 # chef-repo to path
 export PATH="$HOME/chef-repo:$PATH"
-# alias knife=knife -c "$HOME/chef-repo/.chef/knife.rb"
-
-# gvm
-export PATH="$HOME/.gvm/bin/gvm-init.sh:$PATH"
+alias knife="knife -c $HOME/chef-repo/.chef/knife.rb"
 
 # cloudify
 export CLOUDIFY_HOME="$HOME/bin/cloudify"
 export PATH="$CLOUDIFY_HOME/bin:$PATH"
 
-# rvm
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+# go
+GOVERSION=$(brew list go | head -n 1 | cut -d '/' -f 6)
+export GOROOT=$(brew --prefix)/Cellar/go/$GOVERSION
+export GOPATH="$HOME/code/samdunne/go-projects"
+export PATH="$PATH:$GOPATH/bin"
+
+# terraform
+export PATH="$HOME/bin/terraform:$PATH"
