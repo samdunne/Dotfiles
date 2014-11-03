@@ -8,12 +8,8 @@ export PATH=".git/safe/../../bin:$PATH"
 export PATH="$HOME/chef-repo:$PATH"
 alias knife="knife -c $HOME/chef-repo/.chef/knife.rb"
 
-# rvm
-export PATH="$PATH:$HOME/.rvm/bin"
-
-# recommended by brew doctor
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-export PATH="$HOME/bin:$PATH"
+# gnu
+export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 
 # packer
 export PATH="$HOME/bin/packer:$PATH"
@@ -26,7 +22,14 @@ export PATH="$CLOUDIFY_HOME/bin:$PATH"
 GOVERSION=$(brew list go | head -n 1 | cut -d '/' -f 6)
 export GOROOT=$(brew --prefix)/Cellar/go/$GOVERSION
 export GOPATH="$HOME/code/samdunne/go-projects"
-export PATH="$PATH:$GOPATH/bin"
+export PATH="$GOPATH/bin:$PATH"
 
 # terraform
 export PATH="$HOME/bin/terraform:$PATH"
+
+# recommended by brew doctor
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/bin:$PATH"
+
+# rvm
+export PATH="$HOME/.rvm/bin:$PATH"
