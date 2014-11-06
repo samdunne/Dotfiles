@@ -1,0 +1,4 @@
+#!/bin/bash
+
+curl -L https://www.npmjs.org/install.sh | sh
+npm install -g grunt-cli http-server uglify-js jshint yo node-inspector forever nodemon uncss

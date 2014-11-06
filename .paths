@@ -18,6 +18,9 @@ export PATH="$HOME/bin/packer:$PATH"
 export CLOUDIFY_HOME="$HOME/bin/cloudify"
 export PATH="$CLOUDIFY_HOME/bin:$PATH"
 
+# npm
+export PATH="$HOME/.node/bin:$PATH"
+
 # go
 GOVERSION=$(brew list go | head -n 1 | cut -d '/' -f 6)
 export GOROOT=$(brew --prefix)/Cellar/go/$GOVERSION

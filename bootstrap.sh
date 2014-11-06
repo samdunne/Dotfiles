@@ -7,6 +7,13 @@ git pull origin master;
 function doIt() {
 	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
 		--exclude "README.md" --exclude "LICENSE-MIT.txt" -avh --no-perms . ~;
+	chmod +x .install_rvm;
+	chmod +x .install_npm;
+	./.install_rvm;
+	source ~/.bash_profile;
+	brew bundle ~/.brew;
+	brew bundle ~/.cask;
+	./.install_npm;
 	source ~/.bash_profile;
 }
 
