@@ -148,4 +148,10 @@
 
 [user]
   name = "Sam Dunne"
-  email = "sam.dunne@paddypower.com"
+  email = "sam@sam-dunne.com"
+[identity "personal"]
+  name = Sam Dunne
+  email = sam@sam-dunne.com
+[identity "work"]
+  name = Sam Dunne
+  email = sam.dunne@paddypower.com
