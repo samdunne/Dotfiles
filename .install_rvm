@@ -1,3 +1,9 @@
 #!/bin/bash
 
-\curl -sSL https://get.rvm.io | bash -s stable --ruby=2.1.3 --gems=rails,pry,bundler,exifr,maid,whenever
+if !"rvm" 2>/dev/null; then
+	\curl -sSL https://get.rvm.io | bash -s stable --ruby=2.1.3 --gems=rails,pry,bundler,exifr,maid,whenever,chunky_png
+else
+	rvm get stable
+fi
+
+exit 0

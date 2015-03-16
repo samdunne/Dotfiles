@@ -139,3 +139,7 @@ gifify() {
   fi
 }
 
+# change the version of java being used on the fly
+setjdk() {
+  export JAVA_HOME=$(/usr/libexec/java_home -v $1)
+}

@@ -1,4 +1,5 @@
 require 'exifr'
+require 'chunky_png'
 
 Maid.rules do
 
@@ -10,9 +11,9 @@ Maid.rules do
   THREE_MONTHS_AGO = (RUN_TIME - (DAY_SECONDS * 93))
 
   rule 'Sort Camera Uploads into Photos directory' do
-    found = dir('~/Dropbox/Camera Uploads/*.jpg').select do |path|
-      taken_on = EXIFR::JPEG.new(path).date_time
-      if taken_on && taken_on != ""
+    dir('~/Dropbox/Camera Uploads/*.{jpg,png,gif,JPG}').select do |path|
+      taken_on = EXIFR::JPEG.new(path).date_time if File.extname(path).downcase == '.jpg'
+      if taken_on && taken_on != '""'
         destination = "/Users/sadunne/Dropbox/Photos/#{taken_on.year}/#{"%02d" % taken_on.month}/#{"%02d" % taken_on.day}/"
         FileUtils.mkdir_p destination
         move(path, destination)
@@ -23,6 +24,13 @@ Maid.rules do
         FileUtils.mkdir_p destination
         move(path, destination)
       end
+    end
+  end
+
+  rule 'Collect Dropbox Videos into Photos directory' do
+    move where_content_type(dir('~/Dropbox/Camera Uploads/'), 'video'), '~/Movies/'
+    dir('~/Dropbox/Camera Uploads/*.{mkv,mp4,avi,mov}').each do |path|
+      move(path, '~/Movies/')
     end
   end
 
@@ -52,7 +60,7 @@ Maid.rules do
   end
 
   rule 'Cleanup Downloads + Desktop' do
-    ["~/Downloads", "~/Desktop"].each do |junk_drawer|
+    ['~/Downloads', '~/Desktop'].each do |junk_drawer|
       dir("#{junk_drawer}/*").each do |path|
         if 2.week.since?(accessed_at(path))
           trash(path)

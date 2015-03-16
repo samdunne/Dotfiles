@@ -27,6 +27,11 @@ export GOROOT=$(brew --prefix)/Cellar/go/$GOVERSION
 export GOPATH="$HOME/code/samdunne/go-projects"
 export PATH="$GOPATH/bin:$PATH"
 
+# docker
+export DOCKER_HOST=tcp://192.168.59.103:2376
+export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
+export DOCKER_TLS_VERIFY=1
+
 # terraform
 export PATH="$HOME/bin/terraform:$PATH"
 
@@ -36,3 +41,9 @@ export PATH="$HOME/bin:$PATH"
 
 # rvm
 export PATH="$HOME/.rvm/bin:$PATH"
+
+# java
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+
+# android
+export ANDROID_HOME=/usr/local/opt/android-sdk

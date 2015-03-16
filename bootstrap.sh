@@ -6,15 +6,13 @@ git pull origin master;
 
 function doIt() {
 	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
-		--exclude "README.md" --exclude "LICENSE-MIT.txt" -avh --no-perms . ~;
-	chmod +x .install_rvm;
-	chmod +x .install_npm;
+		--exclude "README.md" --exclude "LICENSE-MIT.txt" --exclude ".brew" --exclude ".install_rvm" \
+		--exclude ".install_npm" --exclude ".brewcasks" --exclude ".brewfile" --exclude ".brewtaps" -abviuzP --no-perms . ~;
+	chmod +x .install_rvm .install_npm .brew;
+	./.brew;
 	./.install_rvm;
-	source ~/.bash_profile;
-	brew bundle ~/.brew;
-	brew bundle ~/.cask;
 	./.install_npm;
-	source ~/.bash_profile;
+	source $HOME/.bash_profile;
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then

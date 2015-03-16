@@ -5,7 +5,5 @@ for file in ~/.{paths,extra,bash_prompt,exports,aliases,functions}; do
 done
 unset file
 
-eval "$(chef shell-init zsh)"
-
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh

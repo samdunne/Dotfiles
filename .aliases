@@ -108,3 +108,10 @@ alias hax="growlnotify -a 'Activity Monitor' 'System error' -m 'WTF R U DOIN'"
 
 # user hub instead of git
 alias git=hub
+
+sshSecureKeygen() {
+	ssh-keygen -b 4096 -f ~/.ssh/id_rsa_$1 -C sam@$1_4096
+}
+alias ssh-keygen=sshSecureKeygen
+
+alias knife="/opt/chefdk/bin/knife"
