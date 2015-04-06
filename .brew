@@ -1,3 +1,44 @@
+fancy_echo() {
+  local fmt="$1"; shift
+
+  # shellcheck disable=SC2059
+  printf "\n$fmt\n" "$@"
+}
+
+brew_install_or_upgrade() {
+  if brew_is_installed "$1"; then
+    if brew_is_upgradable "$1"; then
+      fancy_echo "Upgrading %s ..." "$1"
+      brew upgrade "$@"
+    else
+      fancy_echo "Already using the latest version of %s. Skipping ..." "$1"
+    fi
+  else
+    fancy_echo "Installing %s ..." "$1"
+    brew install "$@"
+  fi
+}
+
+brew_is_installed() {
+  local name="$(brew_expand_alias "$1")"
+
+  brew list -1 | grep -Fqx "$name"
+}
+
+brew_is_upgradable() {
+  local name="$(brew_expand_alias "$1")"
+
+  ! brew outdated --quiet "$name" >/dev/null
+}
+
+brew_tap() {
+  brew tap "$1" 2> /dev/null
+}
+
+brew_expand_alias() {
+  brew info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
+}
+
 brew_tap 'caskroom/cask'
 brew_tap 'caskroom/versions'
 brew_tap 'homebrew/brewdler'
@@ -123,26 +164,34 @@ brew_install_or_upgrade 'xvid'
 brew_install_or_upgrade 'xz'
 brew_install_or_upgrade 'zopfli'
 
-brew install cask 'charles'
-brew install cask 'chicken'
-brew install cask 'cleanmymac'
-brew install cask 'coconutbattery'
+# Common Casks
 brew install cask 'consul'
 brew install cask 'dropbox'
 brew install cask 'gitx-l'
 brew install cask 'google-chrome'
 brew install cask 'google-chrome-canary'
-brew install cask 'growlnotify'
-brew install cask 'iterm2'
-brew install cask 'keepassx'
-brew install cask 'kdiff3'
-brew install cask 'qt-creator'
-brew install cask 'reggy'
-brew install cask 'slate'
-brew install cask 'spotify'
-brew install cask 'sublime-text'
-brew install cask 'the-unarchiver'
 brew install cask 'transmission'
+brew install cask 'sublime-text'
 brew install cask 'vagrant'
 brew install cask 'virtualbox'
 brew install cask 'vlc'
+
+if [[ "$OSTYPE" =~ darwin ]]; then
+  # OSX Casks
+  brew install cask 'charles'
+  brew install cask 'chicken'
+  brew install cask 'cleanmymac'
+  brew install cask 'coconutbattery'
+  brew install cask 'growlnotify'
+  brew install cask 'iterm2'
+  brew install cask 'keepassx'
+  brew install cask 'kdiff3'
+  brew install cask 'qt-creator'
+  brew install cask 'reggy'
+  brew install cask 'slate'
+  brew install cask 'spotify'
+  brew install cask 'the-unarchiver'
+elif [[ "$OSTYPE" =~ linux-gnu ]]; then
+  # Linux Casks
+  brew install cask 'terminator'
+fi

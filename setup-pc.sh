@@ -65,7 +65,7 @@ brew_expand_alias() {
 }
 
 # Execute homebrew installation
-chmod a+x
+chmod a+x .brew
 /usr/bin/env bash .brew
 
 # NPM
