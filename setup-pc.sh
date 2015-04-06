@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 
+# Might as well ask for password up-front, right?
+sudo -v
+
 # Homebrew
 if [[ "$OSTYPE" == "linux-gnu" ]]; then
   if "$( which apt-get )" 2> /dev/null; then
-   sudo apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
+   apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
   elif "$( which yum )" 2> /dev/null; then
-    sudo yum groupinstall 'Development Tools'
-    sudo yum install curl git irb m4 ruby texinfo bzip2-devel curl-devel expat-devel ncurses-devel zlib-devel
+    yum groupinstall 'Development Tools'
+    yum install curl git irb m4 ruby texinfo bzip2-devel curl-devel expat-devel ncurses-devel zlib-devel
   else
     echo "Package manager not supported." >&2
     exit 1
   fi
+
+  # We don't need sudo past this point
+  sudo -K
 
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
