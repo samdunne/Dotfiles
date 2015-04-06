@@ -64,7 +64,9 @@ brew_expand_alias() {
   brew info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
 }
 
-./brew
+# Execute homebrew installation
+chmod a+x
+/usr/bin/env bash .brew
 
 # NPM
 command curl -L https://www.npmjs.org/install.sh | bash;
@@ -81,4 +83,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   ./.osx
 fi
 
-./roothkit.sh -f
+# Install the appropriate bash files
+chmod a+x rootkit.sh
+/usr/bin/env bash roothkit.sh -f
