@@ -3,15 +3,14 @@ function md() {
 	mkdir -p "$@" && cd "$@"
 }
 
+# cd into whatever is the forefront Finder window.
+cdf() {  # short for cdfinder
+  cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
+}
 
 # find shorthand
 function f() {
     find . -name "$1"
-}
-
-# cd into whatever is the forefront Finder window.
-cdf() {  # short for cdfinder
-  cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
 }
 
 # git log with per-commit cmd-clickable GitHub URLs (iTerm)
@@ -27,17 +26,13 @@ AWK
   )" | less -F
 }
 
-
 # Copy w/ progress
 cp_p () {
   rsync -WavP --human-readable --progress $1 $2
 }
 
-
-# Test if HTTP compression (RFC 2616 + SDCH) is enabled for a given URL.
-# Send a fake UA string for sites that sniff it instead of using the Accept-Encoding header. (Looking at you, ajax.googleapis.com!)
-function httpcompression() {
-	encoding="$(curl -LIs -H 'User-Agent: Mozilla/5 Gecko' -H 'Accept-Encoding: gzip,deflate,compress,sdch' "$1" | grep '^Content-Encoding:')" && echo "$1 is encoded using ${encoding#* }" || echo "$1 is not using any encoding"
+sshSecureKeygen() {
+  ssh-keygen -b 4096 -f ~/.ssh/id_rsa_$1 -C sam@$1_4096
 }
 
 # Syntax-highlight JSON strings or files
@@ -51,14 +46,11 @@ function json() {
 	fi
 }
 
-
 # take this repo and copy it to somewhere else minus the .git stuff.
 function gitexport(){
 	mkdir -p "$1"
 	git archive master | tar -x -C "$1"
 }
-
-
 
 # get gzipped size
 function gz() {
@@ -71,18 +63,6 @@ function gz() {
 # All the dig info
 function digga() {
 	dig +nocmd "$1" any +multiline +noall +answer
-}
-
-# Escape UTF-8 characters into their 3-byte format
-function escape() {
-	printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u)
-	echo # newline
-}
-
-# Decode \x{ABCD}-style Unicode escape sequences
-function unidecode() {
-	perl -e "binmode(STDOUT, ':utf8'); print \"$@\""
-	echo # newline
 }
 
 # Extract archives - use: extract <file>
@@ -122,24 +102,24 @@ function extract() {
 	fi
 }
 
-
-# animated gifs from any video
-# from alex sexton   gist.github.com/SlexAxton/4989674
-gifify() {
-  if [[ -n "$1" ]]; then
-    if [[ $2 == '--good' ]]; then
-      ffmpeg -i $1 -r 10 -vcodec png out-static-%05d.png
-      time convert -verbose +dither -layers Optimize -resize 600x600\> out-static*.png  GIF:- | gifsicle --colors 128 --delay=5 --loop --optimize=3 --multifile - > $1.gif
-      rm out-static*.png
-    else
-      ffmpeg -i $1 -s 600x400 -pix_fmt rgb24 -r 10 -f gif - | gifsicle --optimize=3 --delay=3 > $1.gif
-    fi
-  else
-    echo "proper usage: gifify <input_movie.mov>. You DO need to include extension."
-  fi
+# change the version of java being used on the fly
+function setjdk() {
+  export JAVA_HOME=$(/usr/libexec/java_home -v $1)
 }
 
-# change the version of java being used on the fly
-setjdk() {
-  export JAVA_HOME=$(/usr/libexec/java_home -v $1)
+function update() {
+  # Get OS X Software Updates
+  sudo softwareupdate -i -a
+
+  # Homebrew
+  brew update
+  brew upgrade
+  brew cleanup
+
+  # Node modules
+  npm update npm -g
+  npm update -g
+
+  # Ruby gems
+  gem update
 }

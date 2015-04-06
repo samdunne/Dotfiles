@@ -1,0 +1,12 @@
+.git/
+.DS_Store
+rootkit.sh
+setup-pc.sh
+.rootkit-ignore
+README.md
+LICENSE.md
+.brew
+Brewfile
+.install_rvm
+.install_npm
+init/

@@ -1,5 +1,6 @@
 {
-	"color_scheme": "Packages/Color Scheme - Default/Solarized (Dark).tmTheme",
+  "color_scheme": "Packages/Theme - Afterglow/Afterglow.tmTheme",
+  "theme": "Afterglow.sublime-theme",
 	"default_encoding": "UTF-8",
 	"default_line_ending": "unix",
 	"detect_indentation": false,
@@ -20,8 +21,13 @@
 		".git",
 		"node_modules"
 	],
+  "ignored_packages":
+  [
+    "Markdown",
+    "Vintage"
+  ],
 	"font_face": "Monaco",
-	"font_size": 13,
+	"font_size": 10,
 	"highlight_modified_tabs": true,
 	"hot_exit": false,
 	"line_padding_bottom": 5,
@@ -30,7 +36,7 @@
 	"remember_open_files": false,
 	"rulers":
 	[
-		80
+		120
 	],
 	"show_encoding": true,
 	"show_line_endings": true,

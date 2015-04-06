@@ -22,6 +22,9 @@ export HISTTIMEFORMAT
 # Make some commands not show up in history
 export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
+# After each command, append to the history file and reread it.
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r";
+
 # Always enable colored `grep` output
 export GREP_OPTIONS="--color=auto";
 
@@ -34,6 +37,9 @@ export LC_ALL="en_US.UTF-8";
 
 # Highlight section titles in manual pages
 export LESS_TERMCAP_md="${yellow}";
+
+# Always enable colored `grep` output.
+export GREP_OPTIONS='--color=auto';
 
 # proxy settings
 location=`/usr/sbin/networksetup -getcurrentlocation`

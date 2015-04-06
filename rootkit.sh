@@ -5,14 +5,9 @@ cd "$(dirname "${BASH_SOURCE}")";
 git pull origin master;
 
 function doIt() {
-	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
-		--exclude "README.md" --exclude "LICENSE-MIT.txt" --exclude ".brew" --exclude ".install_rvm" \
-		--exclude ".install_npm" --exclude ".brewcasks" --exclude ".brewfile" --exclude ".brewtaps" -abviuzP --no-perms . ~;
-	chmod +x .install_rvm .install_npm .brew;
-	./.brew;
-	./.install_rvm;
-	./.install_npm;
-	source $HOME/.bash_profile;
+	rsync --exclude-from .rootkit-ignore -avh --no-perms . ~;
+	source ~/.bash_profile;
+  update;
 }
 
 if [ "$1" == "--force" -o "$1" == "-f" ]; then

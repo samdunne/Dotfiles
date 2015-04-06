@@ -11,9 +11,6 @@ alias knife="knife -c $HOME/chef-repo/.chef/knife.rb"
 # gnu
 export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 
-# packer
-export PATH="$HOME/bin/packer:$PATH"
-
 # cloudify
 export CLOUDIFY_HOME="$HOME/bin/cloudify"
 export PATH="$CLOUDIFY_HOME/bin:$PATH"
@@ -23,17 +20,14 @@ export PATH="$HOME/.node/bin:$PATH"
 
 # go
 GOVERSION=$(brew list go | head -n 1 | cut -d '/' -f 6)
-export GOROOT=$(brew --prefix)/Cellar/go/$GOVERSION
 export GOPATH="$HOME/code/samdunne/go-projects"
-export PATH="$GOPATH/bin:$PATH"
+export GOBIN="$GOPATH/bin"
+export PATH="$GOPATH/bin:$GOBIN:$PATH"
 
 # docker
 export DOCKER_HOST=tcp://192.168.59.103:2376
 export DOCKER_CERT_PATH=$HOME/.boot2docker/certs/boot2docker-vm
 export DOCKER_TLS_VERIFY=1
-
-# terraform
-export PATH="$HOME/bin/terraform:$PATH"
 
 # recommended by brew doctor
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"

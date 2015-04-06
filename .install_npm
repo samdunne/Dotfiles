@@ -1,8 +1,0 @@
-#!/bin/bash +x
-
-if ! which npm; then
-	\curl -L https://www.npmjs.org/install.sh | bash;
-	source ~/.bash_profile;
-else
-	npm install -g grunt-cli http-server uglify-js jshint yo node-inspector forever nodemon uncss;
-fi
