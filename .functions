@@ -108,8 +108,16 @@ function setjdk() {
 }
 
 function update() {
-  # Get OS X Software Updates
-  sudo softwareupdate -i -a
+  if [[ "$OSTYPE" =~ darwin ]]; then
+    # Get OS X Software Updates
+    sudo softwareupdate -i -a
+  elif [[ "$OSTYPE" =~ linux-gnu ]]; then
+    if hash apt-get 2> /dev/null; then
+      sudo apt-get -y update
+    elif hash yum 2> /dev/null; then
+      sudo yum -y update
+    fi
+  fi
 
   # Homebrew
   brew update

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 USAGE="[-d|--define] identity name email"
 USAGE="$USAGE | [-r|--remove] identity"

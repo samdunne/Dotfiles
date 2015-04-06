@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Created by Sindre Sorhus
 # Magically retrieves a GitHub users email even though it's not publicly shown
 

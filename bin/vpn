@@ -1,5 +1,5 @@
-#!/bin/bash
-#
+#!/usr/bin/env bash
+
 # The reason of creating this script is that Endpoint Security VPN installs it's own application firewall kext cpfw.kext
 # which prevents for example PPTP connections from this computer, which is not appropriate if you need subj connection just
 # from time to time

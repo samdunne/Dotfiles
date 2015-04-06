@@ -1,7 +1,9 @@
 Maid.rules do
 
-  rule 'Update homebrew/Macbook' do
-    `update`
+  if /darwin/ =~ RUBY_PLATFORM do
+    rule 'Update homebrew/Macbook' do
+      `update`
+    end
   end
 
 end
