@@ -6,7 +6,6 @@ setup-pc.sh
 README.md
 LICENSE.md
 .brew
-Brewfile
 .install_rvm
 .install_npm
 init/

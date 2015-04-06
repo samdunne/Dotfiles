@@ -6,7 +6,7 @@ git pull origin master;
 
 function doIt() {
 	rsync --exclude-from .rootkit-ignore -avh --no-perms . ~;
-	source ~/.bash_profile;
+	. ~/.bash_profile;
   update;
 }
 

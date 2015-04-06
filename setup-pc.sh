@@ -30,20 +30,49 @@ else
   exit 1
 fi
 
-brew tap Homebrew/brewdler
-brew brewdle
-brew update
-brew upgrade
-brew cleanup
-brew brewdle cleanup
+brew_install_or_upgrade() {
+  if brew_is_installed "$1"; then
+    if brew_is_upgradable "$1"; then
+      fancy_echo "Upgrading %s ..." "$1"
+      brew upgrade "$@"
+    else
+      fancy_echo "Already using the latest version of %s. Skipping ..." "$1"
+    fi
+  else
+    fancy_echo "Installing %s ..." "$1"
+    brew install "$@"
+  fi
+}
+
+brew_is_installed() {
+  local name="$(brew_expand_alias "$1")"
+
+  brew list -1 | grep -Fqx "$name"
+}
+
+brew_is_upgradable() {
+  local name="$(brew_expand_alias "$1")"
+
+  ! brew outdated --quiet "$name" >/dev/null
+}
+
+brew_tap() {
+  brew tap "$1" 2> /dev/null
+}
+
+brew_expand_alias() {
+  brew info "$1" 2>/dev/null | head -1 | awk '{gsub(/:/, ""); print $1}'
+}
+
+./brew
 
 # NPM
-\curl -L https://www.npmjs.org/install.sh | bash;
-source ~/.bash_profile
+command curl -L https://www.npmjs.org/install.sh | bash;
+. ~/.bash_profile
 npm install -g grunt-cli http-server uglify-js jshint yo node-inspector forever nodemon uncss
 
 # RVM
-\curl -sSL https://get.rvm.io | bash -s stable --ruby=2.1.3 --gems=rails,pry,bundler,exifr,maid,whenever,chunky_png
+command curl -sSL https://get.rvm.io | bash -s stable --ruby=2.1.3 --gems=rails,pry,bundler,exifr,maid,whenever,chunky_png
 
 # for the c alias (syntax highlighted cat)
 sudo easy_install Pygments
@@ -51,3 +80,5 @@ sudo easy_install Pygments
 if [[ "$OSTYPE" == "darwin"* ]]; then
   ./.osx
 fi
+
+./roothkit.sh -f
