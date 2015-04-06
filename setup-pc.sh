@@ -6,10 +6,10 @@ sudo -v
 # Homebrew
 if [[ "$OSTYPE" =~ linux-gnu ]]; then
   if hash apt-get 2> /dev/null; then
-   apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
+   sudo apt-get install build-essential curl git m4 ruby texinfo libbz2-dev libcurl4-openssl-dev libexpat-dev libncurses-dev zlib1g-dev
   elif hash yum 2> /dev/null; then
-    yum groupinstall 'Development Tools'
-    yum install curl git irb m4 ruby texinfo bzip2-devel curl-devel expat-devel ncurses-devel zlib-devel
+    sudo yum groupinstall 'Development Tools'
+    sudo yum install curl git irb m4 ruby texinfo bzip2-devel curl-devel expat-devel ncurses-devel zlib-devel
   else
     echo "Package manager not supported." >&2
     exit 1
