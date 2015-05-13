@@ -50,12 +50,16 @@ if [[ "$OSTYPE" =~ darwin ]]; then
     export http_proxy=http://127.0.0.1:3128
     export https_proxy=$http_proxy
     export no_proxy="10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,127.0.0.0/8,localhost"
+    apm config set http-proxy http://localhost:3128
+    apm config set https-proxy http://localhost:3128
   fi
 
   if [ "$location" == "home" ]
   then
     unset http_proxy
     unset https_proxy
+    apm config delete http-proxy
+    apm config delete https-proxy
   fi
 fi
 
