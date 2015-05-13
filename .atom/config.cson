@@ -11,8 +11,12 @@
     ]
     projectHome: "~/code"
     themes: [
-      "seti-ui"
-      "seti-syntax"
+      "atom-dark-ui"
+      "no-caffeine-syntax"
+    ]
+    disabledPackages: [
+      "dash"
+      "package-sync"
     ]
   editor:
     invisibles: {}
@@ -24,7 +28,6 @@
     _analyticsUserId: "6e575198-db1f-42c6-a572-63ff25b31005"
     language_c_beautify_on_save: true
     language_erb_beautify_on_save: true
-    language_go_beautify_on_save: true
     language_java_beautify_on_save: true
     language_js_beautify_on_save: true
     language_json_beautify_on_save: true
@@ -32,3 +35,12 @@
     language_ruby_beautify_on_save: true
   "linter-shellcheck":
     shellcheckExecutablePath: "/usr/local/bin/shellcheck"
+  "travis-ci-status":
+    personalAccessToken: "b12400b4fa70eca9223b207625f35988fbde1cc2"
+  "git-plus": {}
+  "git-diff":
+    showIconsInEditorGutter: true
+  "file-icons": {}
+  "sync-settings":
+    personalAccessToken: "1c9cf0d41d9a4e8eaa276a2c518bee58d8962893"
+    gistId: "gist:7b724c0dddb1608503bb"
