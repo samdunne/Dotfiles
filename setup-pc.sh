@@ -74,7 +74,7 @@ command curl -L https://www.npmjs.org/install.sh | bash;
 npm install -g grunt-cli http-server uglify-js jshint yo node-inspector forever nodemon uncss
 
 # RVM
-command curl -sSL https://get.rvm.io | bash -s stable --ruby=2.1.3 --gems=rails,pry,bundler,exifr,maid,whenever,chunky_png
+command curl -sSL https://get.rvm.io | bash -s stable --ruby=2.1.3 --gems=rails,pry,bundler,exifr,maid,whenever,chunky_png,ruby-beautify,rubocop
 
 # for the c alias (syntax highlighted cat)
 sudo easy_install Pygments

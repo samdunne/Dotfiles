@@ -5,34 +5,34 @@ function md() {
 
 # cd into whatever is the forefront Finder window.
 cdf() {  # short for cdfinder
-  cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
+	cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
 }
 
 # find shorthand
 function f() {
-    find . -name "$1"
+		find . -name "$1"
 }
 
 # git log with per-commit cmd-clickable GitHub URLs (iTerm)
 function gf() {
-  local remote="$(git remote -v | awk '/^origin.*\(push\)$/ {print $2}')"
-  [[ "$remote" ]] || return
-  local user_repo="$(echo "$remote" | perl -pe 's/.*://;s/\.git$//')"
-  git log $* --name-status --color | awk "$(cat <<AWK
-    /^.*commit [0-9a-f]{40}/ {sha=substr(\$2,1,7)}
-    /^[MA]\t/ {printf "%s\thttps://github.com/$user_repo/blob/%s/%s\n", \$1, sha, \$2; next}
-    /.*/ {print \$0}
+	local remote="$(git remote -v | awk '/^origin.*\(push\)$/ {print $2}')"
+	[[ "$remote" ]] || return
+	local user_repo="$(echo "$remote" | perl -pe 's/.*://;s/\.git$//')"
+	git log $* --name-status --color | awk "$(cat <<AWK
+		/^.*commit [0-9a-f]{40}/ {sha=substr(\$2,1,7)}
+		/^[MA]\t/ {printf "%s\thttps://github.com/$user_repo/blob/%s/%s\n", \$1, sha, \$2; next}
+		/.*/ {print \$0}
 AWK
-  )" | less -F
+	)" | less -F
 }
 
 # Copy w/ progress
 cp_p () {
-  rsync -WavP --human-readable --progress $1 $2
+	rsync -WavP --human-readable --progress $1 $2
 }
 
 sshSecureKeygen() {
-  ssh-keygen -b 4096 -f ~/.ssh/id_rsa_$1 -C sam@$1_4096
+	ssh-keygen -b 4096 -f ~/.ssh/id_rsa_$1 -C sam@$1_4096
 }
 
 # Syntax-highlight JSON strings or files
@@ -102,32 +102,52 @@ function extract() {
 	fi
 }
 
+# packs $2-$n into $1 depending on $1's extension.  add more file types as needed
+function pack() {
+	if [ $# -lt 2 ] ; then
+		echo -e "\npack() usage:"
+		echo -e "\tpack archive_file_name file1 file2 ... fileN"
+		echo -e "\tcreates archive of files 1-N\n"
+	else
+		DEST=$1
+		shift
+
+		case $DEST in
+			*.tar.bz2) tar -cvjf $DEST "$@" ;;
+			*.tar.gz) tar -cvzf $DEST "$@" ;;
+			*.zip) zip -r $DEST "$@" ;;
+			*.xpi) zip -r $DEST "$@" ;;
+			*) echo "Unknown file type - $DEST" ;;
+		esac
+	fi
+}
+
 # change the version of java being used on the fly
 function setjdk() {
-  export JAVA_HOME=$(/usr/libexec/java_home -v $1)
+	export JAVA_HOME=$(/usr/libexec/java_home -v $1)
 }
 
 function update() {
-  if [[ "$OSTYPE" =~ darwin ]]; then
-    # Get OS X Software Updates
-    sudo softwareupdate -i -a
-  elif [[ "$OSTYPE" =~ linux-gnu ]]; then
-    if hash apt-get 2> /dev/null; then
-      sudo apt-get -y update
-    elif hash yum 2> /dev/null; then
-      sudo yum -y update
-    fi
-  fi
+	if [[ "$OSTYPE" =~ darwin ]]; then
+		# Get OS X Software Updates
+		sudo softwareupdate -i -a
+	elif [[ "$OSTYPE" =~ linux-gnu ]]; then
+		if hash apt-get 2> /dev/null; then
+			sudo apt-get -y update
+		elif hash yum 2> /dev/null; then
+			sudo yum -y update
+		fi
+	fi
 
-  # Homebrew
-  brew update
-  brew upgrade
-  brew cleanup
+	# Homebrew
+	brew update
+	brew upgrade
+	brew cleanup
 
-  # Node modules
-  npm update npm -g
-  npm update -g
+	# Node modules
+	npm update npm -g
+	npm update -g
 
-  # Ruby gems
-  gem update
+	# Ruby gems
+	gem update
 }

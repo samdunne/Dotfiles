@@ -1,0 +1,34 @@
+{
+  "name": "language-x86asm",
+  "version": "0.5.1",
+  "description": "Adds syntax highlighting to x86 asm files in Atom.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SWW13/language-x86asm"
+  },
+  "license": "GPLv3",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {},
+  "readme": "# x86 Assembly Language Support in Atom\n\nAdds syntax highlighting to x86 asssembly files in Atom.\n\nOriginally [converted](http://atom.io/docs/latest/converting-a-text-mate-bundle)\nfrom the TextMate bundle:\n\n - [x86-assembly-textmate-bundle](https://github.com/lunixbochs/x86-assembly-textmate-bundle)\n\nContributions are greatly appreciated! Please fork this repository and open a\npull request to add snippets, make grammar tweaks, etc.\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/SWW13/language-x86asm/issues"
+  },
+  "homepage": "https://github.com/SWW13/language-x86asm",
+  "_id": "language-x86asm@0.5.1",
+  "_shasum": "e255a72e671e7ac1b7dac76215539f8c289d0521",
+  "_resolved": "file:../d-115410-9471-kt9yze/package.tgz",
+  "_from": "../d-115410-9471-kt9yze/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}
