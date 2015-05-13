@@ -41,6 +41,3 @@
   "git-diff":
     showIconsInEditorGutter: true
   "file-icons": {}
-  "sync-settings":
-    personalAccessToken: "1c9cf0d41d9a4e8eaa276a2c518bee58d8962893"
-    gistId: "gist:7b724c0dddb1608503bb"
