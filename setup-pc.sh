@@ -85,4 +85,4 @@ fi
 
 # Install the appropriate bash files
 chmod a+x rootkit.sh
-/usr/bin/env bash roothkit.sh -f
+/usr/bin/env bash rootkit.sh -f

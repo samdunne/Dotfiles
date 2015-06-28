@@ -36,5 +36,8 @@ if type _git &> /dev/null && [ -f /usr/local/etc/bash_completion.d/git-completio
   complete -o default -o nospace -F _git g;
 fi;
 
+# Add some RVM love
+if [ -s ~/.rvm/scripts/rvm ] ; then source ~/.rvm/scripts/rvm ; fi
+
 # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh;
