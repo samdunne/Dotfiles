@@ -46,12 +46,6 @@ Maid.rules do
     end
   end
 
-  rule '~/Library/Caches' do
-    dir('~/Library/Caches/Google/Chrome/Default/Cache/*').each do |path|
-      trash path if File.mtime(path) < THREE_MONTHS_AGO
-    end
-  end
-
   rule 'Collect downloaded videos to watch later' do
     move where_content_type(dir('~/Downloads/*'), 'video'), '~/Movies/'
     dir('~/Downloads/*.{mkv,mp4,avi}').each do |path|
@@ -103,9 +97,5 @@ Maid.rules do
         end
       end
     end
-  end
-
-  rule 'Update crontab' do
-    `whenever --update-crontab -f ~/.maid/schedule.rb`
   end
 end

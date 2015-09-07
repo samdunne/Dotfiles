@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+if [ "$1" == 'shutdown' ]
+then
+  for VM in $(VBoxManage list runningvms | awk '{ print $2; }'); do VBoxManage controlvm "$VM" poweroff; done
+fi
+
+if [ "$1" == 'destroy' ]
+then
+  for VM in $(VBoxManage list runningvms | awk '{ print $2; }'); do VBoxManage controlvm "$VM" destroy; done
+fi
+
+if [ "$1" == 'reconfigure-fusion' ]
+then
+  sudo /Applications/VMware\ Fusion.app/Contents/Library/vmnet-cli --configure
+  sudo /Applications/VMware\ Fusion.app/Contents/Library/vmnet-cli --stop
+  sudo /Applications/VMware\ Fusion.app/Contents/Library/vmnet-cli --start
+fi

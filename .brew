@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 fancy_echo() {
   local fmt="$1"; shift
 
@@ -42,6 +44,7 @@ brew_expand_alias() {
 brew_tap 'caskroom/cask'
 brew_tap 'caskroom/versions'
 brew_tap 'homebrew/brewdler'
+brew_tap 'homebrew/services'
 brew_tap 'homebrew/dupes'
 brew_tap 'homebrew/games'
 brew_tap 'homebrew/versions'
@@ -65,6 +68,8 @@ brew_install_or_upgrade 'coreutils'
 brew_install_or_upgrade 'cscope'
 brew_install_or_upgrade 'ctags'
 brew_install_or_upgrade 'docker'
+brew_install_or_upgrade 'dnsmasq'
+brew_install_or_upgrade 'dnscrypt-proxy'
 brew_install_or_upgrade 'elasticsearch'
 brew_install_or_upgrade 'emacs'
 brew_install_or_upgrade 'erlang'
@@ -84,6 +89,7 @@ brew_install_or_upgrade 'gmp'
 brew_install_or_upgrade 'gnu-sed', args: ['default-names']
 brew_install_or_upgrade 'go'
 brew_install_or_upgrade 'grep'
+brew_install_or_upgrade 'gnupg'
 brew_install_or_upgrade 'hub'
 brew_install_or_upgrade 'imagemagick'
 brew_install_or_upgrade 'isl'
@@ -125,6 +131,7 @@ brew_install_or_upgrade 'phantomjs'
 brew_install_or_upgrade 'pigz'
 brew_install_or_upgrade 'pkg-config'
 brew_install_or_upgrade 'postgresql'
+brew_install_or_upgrade 'privoxy'
 brew_install_or_upgrade 'pv'
 brew_install_or_upgrade 'qt'
 brew_install_or_upgrade 'rbenv'
@@ -169,8 +176,9 @@ brew_install_or_upgrade 'zopfli'
 brew cask install 'atom'
 brew cask install 'consul'
 brew cask install 'dropbox'
-brew cask install 'google-chrome'
+brew cask install 'terraform'
 brew cask install 'transmission'
+brew cask install 'packer'
 brew cask install 'vagrant'
 brew cask install 'virtualbox'
 brew cask install 'vlc'
@@ -178,16 +186,14 @@ brew cask install 'vlc'
 if [[ "$OSTYPE" =~ darwin ]]; then
   # OSX Casks
   brew cask install '1password'
-  brew cask install 'coconutbattery'
-  brew cask install 'growlnotify'
   brew cask install 'iterm2'
   brew cask install 'kdiff3'
   brew cask install 'qt-creator'
-  brew cask install 'reggy'
-  brew cask install 'slate'
   brew cask install 'spotify'
   brew cask install 'the-unarchiver'
+  brew cask install 'vmware_fusion'
 elif [[ "$OSTYPE" =~ linux-gnu ]]; then
   # Linux Casks
+  brew cask install 'google-chrome'
   brew install cask 'terminator'
 fi
