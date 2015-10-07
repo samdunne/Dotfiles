@@ -10,7 +10,6 @@ alias .....="cd ../../../.."
 alias -- -="cd -"
 
 # Shortcuts
-alias monkey="cd ~/code/monkeylittle"
 alias codes="cd ~/code/samdunne"
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)

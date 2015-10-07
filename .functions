@@ -1,6 +1,6 @@
 # Create a new directory and enter it
 function md() {
-	mkdir -p "$@" && cd "$@"
+	mkdir -p "$@" && $(cd "$@" || exit)
 }
 
 # cd into whatever is the forefront Finder window.
@@ -144,10 +144,45 @@ function update() {
 	brew upgrade
 	brew cleanup
 
-	# Node modules
-	npm update npm -g
-	npm update -g
-
 	# Ruby gems
 	gem update
+}
+
+function chef_json() {
+	chef exec ruby -e 'p ARGF.read' "$1"
+}
+
+function cleanup_berkshelf() {
+	rm -rf "$HOME/.berkshelf/cookbooks"
+	rm -rf "$HOME/.berkshelf.cache"
+}
+
+function berksderp() {
+	vagrant destroy -f
+	rm Berksfile.lock
+	rm -rf .vagrant/
+	cleanup_berkshelf
+}
+
+function vagrant-global-destroy() {
+	vagrant global-status | awk '/running/{print $1}' | xargs -n 1 -- vagrant destroy -f
+	cleanup_berkshelf
+	vagrant global-status --prune
+}
+
+function proxy_on() {
+	brew services start cntlm
+	apm config set http-proxy http://127.0.0.1:3128
+	apm config set https-proxy http://127.0.0.1:3128
+}
+
+function proxy_off() {
+	brew services stop cntlm
+	apm config delete http-proxy
+	apm config delete https-proxy
+}
+
+function vagrant-rage() {
+	berksderp
+	vagrant up
 }
