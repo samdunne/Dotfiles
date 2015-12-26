@@ -94,10 +94,8 @@ sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo Hos
 # Restart automatically if the computer freezes
 sudo systemsetup -setrestartfreeze on
 
-# Enable checkpoint vpn in yosemite
 # Enable the MacBook Air SuperDrive on any Mac
-# Boot in verbose mode
-sudo nvram boot-args="kext-dev-mode=1 mbasd=1 -v"
+sudo nvram boot-args="mbasd=1"
 
 # Never go into computer sleep mode
 sudo systemsetup -setcomputersleep Off > /dev/null

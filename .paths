@@ -1,12 +1,6 @@
 # -*- mode: bash -*-
 # vi: set ft=bash :
 
-if [[ "$OSTYPE" =~ linux-gnu ]]; then
-  export PATH="$HOME/.linuxbrew/bin:$PATH"
-  export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
-  export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
-fi
-
 # mkdir .git/safe in the root of repositories you trust
 export PATH=".git/safe/../../bin:$PATH"
 
@@ -22,5 +16,5 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 # java
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
-# chefdk
-eval "$(chef shell-init bash)"
+# VMWare Fusion CLI Tools
+export PATH="/Applications/VMware\ Fusion.app/Contents/Library/:$PATH"

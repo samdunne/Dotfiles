@@ -10,7 +10,7 @@ cdf() {  # short for cdfinder
 
 # find shorthand
 function f() {
-		find . -name "$1"
+	find . -name "$1"
 }
 
 # git log with per-commit cmd-clickable GitHub URLs (iTerm)
@@ -128,23 +128,16 @@ function setjdk() {
 }
 
 function update() {
-	if [[ "$OSTYPE" =~ darwin ]]; then
-		# Get OS X Software Updates
-		sudo softwareupdate -i -a
-	elif [[ "$OSTYPE" =~ linux-gnu ]]; then
-		if hash apt-get 2> /dev/null; then
-			sudo apt-get -y update
-		elif hash yum 2> /dev/null; then
-			sudo yum -y update
-		fi
-	fi
+	sudo softwareupdate -i -a
 
 	# Homebrew
 	brew update
 	brew upgrade
 	brew cleanup
+	brew cask cleanup
 
 	# Ruby gems
+	gem cleanup
 	gem update
 }
 
@@ -154,7 +147,7 @@ function chef_json() {
 
 function cleanup_berkshelf() {
 	rm -rf "$HOME/.berkshelf/cookbooks"
-	rm -rf "$HOME/.berkshelf.cache"
+	rm -rf "$HOME/.berkshelf/.cache"
 }
 
 function berksderp() {
@@ -170,19 +163,41 @@ function vagrant-global-destroy() {
 	vagrant global-status --prune
 }
 
-function proxy_on() {
-	brew services start cntlm
-	apm config set http-proxy http://127.0.0.1:3128
-	apm config set https-proxy http://127.0.0.1:3128
-}
-
-function proxy_off() {
-	brew services stop cntlm
-	apm config delete http-proxy
-	apm config delete https-proxy
-}
-
 function vagrant-rage() {
 	berksderp
 	vagrant up
+}
+
+function vagrant-box-update-all() {
+	# Find all boxes which have updates
+	AVAILABLE_UPDATES=`vagrant box outdated --global | grep outdated | tr -d "*'" | cut -d ' ' -f 2`
+
+	if [ ! ${#AVAILABLE_UPDATES[@]} -eq 0 ]; then
+	  for box in $AVAILABLE_UPDATES ; do
+
+	    echo "Found an update for $box"
+
+	    # Find all current versions
+	    VERSIONS=`vagrant box list | grep $box | cut -d ',' -f 2 | tr -d ' )'`
+
+	    # Add latest version
+	    vagrant box add --clean $box
+	    BOX_UPDATED="TRUE"
+
+	    # Remove all old versions
+	    for version in $VERSIONS ; do
+	      vagrant box remove $box -f --box-version=$version
+	    done
+
+	  done
+
+	  echo "All boxes are now up to date!"
+
+	else
+
+	  echo "All boxes are already up to date!"
+
+	fi
+
+	vagrant box outdated --global
 }

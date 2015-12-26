@@ -10,7 +10,7 @@ alias .....="cd ../../../.."
 alias -- -="cd -"
 
 # Shortcuts
-alias codes="cd ~/code/samdunne"
+alias code="cd ~/code/samdunne"
 
 alias hosts='sudo $EDITOR /etc/hosts'   # yes I occasionally 127.0.0.1 twitter.com ;)
 
@@ -97,8 +97,8 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 	alias "$method"="lwp-request -m '$method'"
 done
 
-# user hub instead of git
-alias git=hub
-
 # Generate secure ssh keys
 alias ssh-key=sshSecureKeygen
+
+alias compile-ssh-config='cat ~/.ssh/config* > ~/.ssh/compilation'
+alias ssh='compile-ssh-config && ssh -F ~/.ssh/compilation'

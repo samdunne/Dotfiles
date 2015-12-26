@@ -29,7 +29,7 @@ export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; histor
 export GREP_OPTIONS="--color=auto";
 
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
-export HOMEBREW_CASK_OPTS="--appdir=/Applications";
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 # Prefer US English and use UTF-8
 export LANG="en_US.UTF-8";
@@ -41,18 +41,17 @@ export LESS_TERMCAP_md="${yellow}";
 # Always enable colored `grep` output.
 export GREP_OPTIONS='--color=auto';
 
-if [[ "$OSTYPE" =~ darwin ]]; then
-  location=`/usr/sbin/networksetup -getcurrentlocation`
+# VMWare Fusion as default Vagrant provider
+export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 
-  if [ "$location" == "work" ]
-  then
-    export http_proxy=http://127.0.0.1:3128
-    export https_proxy=$http_proxy
-  fi
+location=`/usr/sbin/networksetup -getcurrentlocation`
 
-  if [ "$location" == "home" ]
-  then
-    unset http_proxy
-    unset https_proxy
-  fi
+if [ "$location" == "work" ]
+then
+  proxy on
+fi
+
+if [ "$location" == "home" ]
+then
+  proxy off
 fi

@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# This depends on a file named `/root/backup_dirs` containing a list of directories to backup
+# one per line. All directories in that file will be archived together.
+
+set -e
+set -x
+set -o pipefail
+
+date=$(date +%Y-%m-%d-%H-%M-%S)
+hostname=$(hostname)
+repo_dir=/Users/sam/code/samdunne
+
+for backup_dir in $(cat /root/backup_dirs); do
+    if [[ -d "$backup_dir" ]]; then
+      backup_dirs="$backup_dirs $backup_dir"
+    fi
+done
+
+/usr/local/bin/tarsnap -c -f backup-"$hostname"-"$date" "$backup_dirs"
+
+if [[ -d $repo_dir ]]; then
+    pushd $repo_dir
+    while IFS= read -r -d '' repo
+    do
+        pushd "$repo"
+        if [[ $(date +%u) == "7" ]]; then
+            git gc --aggressive --quiet
+        else
+            git gc --auto --quiet
+        fi
+        popd
+        /usr/local/bin/tarsnap -c -f "$repo"-"$date" "$repo"
+    done < <(find . -name '*.git' -type d)
+    popd
+fi

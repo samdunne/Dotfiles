@@ -12,7 +12,8 @@ fi
 
 if [ "$1" == 'reconfigure-fusion' ]
 then
-  sudo /Applications/VMware\ Fusion.app/Contents/Library/vmnet-cli --configure
-  sudo /Applications/VMware\ Fusion.app/Contents/Library/vmnet-cli --stop
-  sudo /Applications/VMware\ Fusion.app/Contents/Library/vmnet-cli --start
+  sudo -v
+  sudo vmnet-cli --configure
+  sudo vmnet-cli --stop
+  sudo vmnet-cli --start
 fi
