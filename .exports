@@ -1,7 +1,12 @@
+#!/usr/bin/env bash
+
 # Make vim the default editor
 # use vim as the visual editor
 export VISUAL=vim
 export EDITOR=$VISUAL
+
+# Set the LOG_LEVEL to something sane
+export LOG_LEVEL=3
 
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
@@ -44,14 +49,16 @@ export GREP_OPTIONS='--color=auto';
 # VMWare Fusion as default Vagrant provider
 export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
 
-location=`/usr/sbin/networksetup -getcurrentlocation`
+location=$(/usr/sbin/networksetup -getcurrentlocation)
 
-if [ "$location" == "work" ]
+if [ "$location" == "work" ] && [ ! -f /usr/local/var/run/local-proxy.pid ];
 then
-  proxy on
-fi
-
-if [ "$location" == "home" ]
+  proxy-on
+elif [ "$location" == "work-vpn" ] && [ ! -f /usr/local/var/run/local-proxy.pid ];
 then
-  proxy off
+  proxy-on
+  psproxy on
+elif [ "$location" == "home" ] && [ -f /usr/local/var/run/local-proxy.pid ];
+then
+  proxy-off
 fi

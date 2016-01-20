@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Create a new directory and enter it
 function md() {
 	mkdir -p "$@" && $(cd "$@" || exit)
@@ -150,6 +152,11 @@ function cleanup_berkshelf() {
 	rm -rf "$HOME/.berkshelf/.cache"
 }
 
+function terraform-chef-destroy() {
+	grep '"name":' "terraform.tfstate" | awk '{print $2}' | sort | uniq | xargs -I {} sh -c "knife node delete -y {}; knife client delete -y {} || true"
+	terraform destroy
+}
+
 function berksderp() {
 	vagrant destroy -f
 	rm Berksfile.lock
@@ -182,7 +189,6 @@ function vagrant-box-update-all() {
 
 	    # Add latest version
 	    vagrant box add --clean $box
-	    BOX_UPDATED="TRUE"
 
 	    # Remove all old versions
 	    for version in $VERSIONS ; do
@@ -200,4 +206,30 @@ function vagrant-box-update-all() {
 	fi
 
 	vagrant box outdated --global
+}
+
+function proxy-on() {
+	launchctl load ~/Library/LaunchAgents/com.oho.cntlm.daemon.plist > /dev/null 2>&1
+	export http_proxy=http://127.0.0.1:3128
+  export https_proxy=$http_proxy
+  npm config set proxy $http_proxy > /dev/null 2>&1
+  npm config set https-proxy $http_proxy > /dev/null 2>&1
+  apm config set http-proxy $http_proxy > /dev/null 2>&1
+  apm config set https-proxy $http_proxy > /dev/null 2>&1
+  sed -i 's/network.proxy.mode=0/network.proxy.mode=2/g' "$HOME/Library/Application Support/Spotify/prefs"
+  echo 'network.proxy.addr="127.0.0.1:3128@https"' >> "$HOME/Library/Application Support/Spotify/prefs"
+	touch /usr/local/var/run/local-proxy.pid
+}
+
+function proxy-off() {
+	launchctl unload ~/Library/LaunchAgents/com.oho.cntlm.daemon.plist > /dev/null 2>&1
+	unset http_proxy
+  unset https_proxy
+  npm config delete proxy > /dev/null 2>&1
+  npm config delete https-proxy > /dev/null 2>&1
+  apm config delete http-proxy > /dev/null 2>&1
+  apm config delete https-proxy > /dev/null 2>&1
+  sed -i '/network.proxy.addr="127.0.0.1:3128@https"/d' "$HOME/Library/Application Support/Spotify/prefs"
+  sed -i "s/network.proxy.mode=2/network.proxy.mode=0/g" "$HOME/Library/Application Support/Spotify/prefs"
+	rm -rf /usr/local/var/run/local-proxy.pid
 }

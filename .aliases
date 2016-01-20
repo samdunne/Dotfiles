@@ -1,5 +1,4 @@
-# -*- mode: bash -*-
-# vi: set ft=bash :
+#!/usr/bin/env bash
 
 # Easier navigation: .., ..., ~ and -
 alias ..="cd .."

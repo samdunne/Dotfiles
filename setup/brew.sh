@@ -77,6 +77,7 @@ packages=(
   'findutils'
   'foremost'
   'freetype'
+  'elasticsearch'
   'gcc'
   'gdbm'
   'gettext'
@@ -157,10 +158,13 @@ packages=(
 
 casks=(
   'atom'
+  'chefdk'
   'consul'
   'dropbox'
   'terraform'
   'transmission'
+  'mou'
+  'kindle'
   'packer'
   'vagrant'
   'virtualbox'

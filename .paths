@@ -1,5 +1,4 @@
-# -*- mode: bash -*-
-# vi: set ft=bash :
+#!/usr/bin/env bash
 
 # mkdir .git/safe in the root of repositories you trust
 export PATH=".git/safe/../../bin:$PATH"
@@ -18,3 +17,6 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
 # VMWare Fusion CLI Tools
 export PATH="/Applications/VMware\ Fusion.app/Contents/Library/:$PATH"
+
+# chefdk
+export PATH="/opt/chefdk/bin:$PATH"

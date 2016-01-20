@@ -7,7 +7,6 @@ git pull origin master;
 function run() {
 	rsync --exclude-from .sync-ignore -avh --no-perms . ~;
 	. ~/.bash_profile;
-  update;
 }
 
 if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
@@ -20,5 +19,3 @@ else
 	fi;
 fi;
 unset run;
-
-maid clean -fr ~/.maid/rules.rb

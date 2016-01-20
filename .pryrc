@@ -96,9 +96,9 @@ $LOAD_PATH << File.dirname(File.realpath(__FILE__))
 
 # In CodeRay >= 1.1.0 token colors are defined as pre-escaped ANSI codes
 if Gem::Version.new(CodeRay::VERSION) >= Gem::Version.new('1.1.0')
-  require_relative "~/.bin/escaped_colors"
+  require_relative File.join(ENV['HOME'], '/.bin/escaped_colors')
 else
-  require_relative "~/.bin/unescaped_colors"
+  require_relative File.join(ENV['HOME'], '/.bin/unescaped_colors')
 end
 
 module CodeRay
