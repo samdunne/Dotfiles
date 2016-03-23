@@ -30,9 +30,6 @@ export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 # After each command, append to the history file and reread it.
 export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r";
 
-# Always enable colored `grep` output
-export GREP_OPTIONS="--color=auto";
-
 # Link Homebrew casks in `/Applications` rather than `~/Applications`
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
@@ -43,22 +40,12 @@ export LC_ALL="en_US.UTF-8";
 # Highlight section titles in manual pages
 export LESS_TERMCAP_md="${yellow}";
 
-# Always enable colored `grep` output.
-export GREP_OPTIONS='--color=auto';
-
 # VMWare Fusion as default Vagrant provider
-export VAGRANT_DEFAULT_PROVIDER=vmware_fusion
+export VAGRANT_DEFAULT_PROVIDER="vmware_fusion"
 
-location=$(/usr/sbin/networksetup -getcurrentlocation)
-
-if [ "$location" == "work" ] && [ ! -f /usr/local/var/run/local-proxy.pid ];
-then
-  proxy-on
-elif [ "$location" == "work-vpn" ] && [ ! -f /usr/local/var/run/local-proxy.pid ];
-then
-  proxy-on
-  psproxy on
-elif [ "$location" == "home" ] && [ -f /usr/local/var/run/local-proxy.pid ];
-then
-  proxy-off
-fi
+# Perl related exports
+export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"
+export PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_ROOT}"
+export PERL_MB_OPT="--install_base \"$HOME/perl5\""
+export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
+export PERL_MM_USE_DEFAULT=1

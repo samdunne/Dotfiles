@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 TERM_TOKEN_COLORS = {
   attribute_name: '33',
   attribute_value: '31',

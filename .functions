@@ -207,29 +207,3 @@ function vagrant-box-update-all() {
 
 	vagrant box outdated --global
 }
-
-function proxy-on() {
-	launchctl load ~/Library/LaunchAgents/com.oho.cntlm.daemon.plist > /dev/null 2>&1
-	export http_proxy=http://127.0.0.1:3128
-  export https_proxy=$http_proxy
-  npm config set proxy $http_proxy > /dev/null 2>&1
-  npm config set https-proxy $http_proxy > /dev/null 2>&1
-  apm config set http-proxy $http_proxy > /dev/null 2>&1
-  apm config set https-proxy $http_proxy > /dev/null 2>&1
-  sed -i 's/network.proxy.mode=0/network.proxy.mode=2/g' "$HOME/Library/Application Support/Spotify/prefs"
-  echo 'network.proxy.addr="127.0.0.1:3128@https"' >> "$HOME/Library/Application Support/Spotify/prefs"
-	touch /usr/local/var/run/local-proxy.pid
-}
-
-function proxy-off() {
-	launchctl unload ~/Library/LaunchAgents/com.oho.cntlm.daemon.plist > /dev/null 2>&1
-	unset http_proxy
-  unset https_proxy
-  npm config delete proxy > /dev/null 2>&1
-  npm config delete https-proxy > /dev/null 2>&1
-  apm config delete http-proxy > /dev/null 2>&1
-  apm config delete https-proxy > /dev/null 2>&1
-  sed -i '/network.proxy.addr="127.0.0.1:3128@https"/d' "$HOME/Library/Application Support/Spotify/prefs"
-  sed -i "s/network.proxy.mode=2/network.proxy.mode=0/g" "$HOME/Library/Application Support/Spotify/prefs"
-	rm -rf /usr/local/var/run/local-proxy.pid
-}

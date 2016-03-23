@@ -1,3 +1,5 @@
+#!/usr/bin/ruby
+
 TERM_TOKEN_COLORS = {
   attribute_name: "\e[33m",
   attribute_value: "\e[31m",

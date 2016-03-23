@@ -5,5 +5,4 @@ setup.sh
 .sync-ignore
 README.md
 LICENSE.md
-init/
 setup/

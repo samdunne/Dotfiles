@@ -11,10 +11,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-#sudo scutil --set ComputerName "0x6D746873"
-#sudo scutil --set HostName "0x6D746873"
-#sudo scutil --set LocalHostName "0x6D746873"
-#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "0x6D746873"
+sudo scutil --set ComputerName "bumble"
+sudo scutil --set HostName "bumble"
+sudo scutil --set LocalHostName "bumble"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "bumble"
 
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
@@ -174,7 +174,7 @@ sudo systemsetup -settimezone "Europe/Dublin" > /dev/null
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
-# Stop iTunes from responding to the keyboard media keys
+# Stop iTunes from responding to the keyboard media keystime
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
 ###############################################################################
@@ -493,66 +493,11 @@ sudo mdutil -i on / > /dev/null
 sudo mdutil -E / > /dev/null
 
 ###############################################################################
-# Terminal & iTerm 2                                                          #
+# iTerm 2                                                                     #
 ###############################################################################
 
-# Only use UTF-8 in Terminal.app
-defaults write com.apple.terminal StringEncodings -array 4
-
-# Use a modified version of the Solarized Dark theme by default in Terminal.app
-osascript <<EOD
-
-tell application "Terminal"
-
-  local allOpenedWindows
-  local initialOpenedWindows
-  local windowID
-  set themeName to "Solarized Dark xterm-256color"
-
-  (* Store the IDs of all the open terminal windows. *)
-  set initialOpenedWindows to id of every window
-
-  (* Open the custom theme so that it gets added to the list
-     of available terminal themes (note: this will open two
-     additional terminal windows). *)
-  do shell script "open '$HOME/init/" & themeName & ".terminal'"
-
-  (* Wait a little bit to ensure that the custom theme is added. *)
-  delay 1
-
-  (* Set the custom theme as the default terminal theme. *)
-  set default settings to settings set themeName
-
-  (* Get the IDs of all the currently opened terminal windows. *)
-  set allOpenedWindows to id of every window
-
-  repeat with windowID in allOpenedWindows
-
-    (* Close the additional windows that were opened in order
-       to add the custom theme to the list of terminal themes. *)
-    if initialOpenedWindows does not contain windowID then
-      close (every window whose id is windowID)
-
-    (* Change the theme for the initial opened terminal windows
-       to remove the need to close them in order for the custom
-       theme to be applied. *)
-    else
-      set current settings of tabs of (every window whose id is windowID) to settings set themeName
-    end if
-
-  end repeat
-
-end tell
-
-EOD
-
-# Enable “focus follows mouse” for Terminal.app and all X11 apps
-# i.e. hover over a window and start typing in it without clicking first
-#defaults write com.apple.terminal FocusFollowsMouse -bool true
-#defaults write org.x.X11 wm_ffm -bool true
-
 # Install the Solarized Dark theme for iTerm
-open "${HOME}/init/Solarized Dark.itermcolors"
+open "${HOME}/.init/Solarized Dark.itermcolors"
 
 # Don’t display the annoying prompt when quitting iTerm
 defaults write com.googlecode.iterm2 PromptOnQuit -bool false
@@ -643,7 +588,7 @@ defaults write ~/Library/Preferences/org.gpgtools.gpgmail SignNewEmailsByDefault
 
 for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
   "Dock" "Finder" "Mail" "Messages" "Safari" \
-  "SystemUIServer" "Terminal" "Twitter" "iCal"; do
+  "SystemUIServer" "iTerm2" "Twitter" "iCal"; do
   killall "${app}" > /dev/null 2>&1
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."

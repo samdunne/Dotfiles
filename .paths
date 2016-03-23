@@ -16,7 +16,10 @@ export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 
 # VMWare Fusion CLI Tools
-export PATH="/Applications/VMware\ Fusion.app/Contents/Library/:$PATH"
+export PATH="/Applications/VMware\ Fusion.app/Contents/Library:$PATH"
 
 # chefdk
 export PATH="/opt/chefdk/bin:$PATH"
+
+# Perl
+export PATH="$HOME/perl5/bin:$PATH"
