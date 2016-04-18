@@ -2,14 +2,21 @@
 
 brew install --HEAD https://raw.github.com/postmodern/gem_home/master/homebrew/gem_home.rb
 
+brew install gdbm libffi libyaml openssl readline
+brew install gcc48
+
 # Get Ruby install
 brew install ruby-install
-ruby-install --system ruby 2.2
+ruby-install ruby 1.9 -- CC=gcc48
+ruby-install ruby 2.0
+ruby-install ruby 2.1
+ruby-install ruby 2.2
+ruby-install ruby 2.3
 
 # Support changing ruby
 brew install chruby
-chruby ruby-2.3.0
-gem_home -
+chruby ruby-2.3
+gem_home $HOME
 
 source ~/.bashrc
 

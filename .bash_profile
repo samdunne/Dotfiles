@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+source /usr/local/share/gem_home/gem_home.sh
 source /usr/local/share/chruby/chruby.sh
 source /usr/local/share/chruby/auto.sh
-source /usr/local/share/gem_home/gem_home.sh
+
+chruby ruby-2.2
 
 # Add ~/bin
 export PATH="$HOME/.bin:$PATH";

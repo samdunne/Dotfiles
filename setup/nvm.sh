@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
+git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`
+
 source ~/.bashrc
-nvm install v4.2.1
-nvm use 4.2.1
-nvm alias default 4.2.
+nvm install 5.0
+nvm use 5.0
+nvm alias default node
