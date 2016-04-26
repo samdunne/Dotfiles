@@ -11,10 +11,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-sudo scutil --set ComputerName "bumble"
-sudo scutil --set HostName "bumble"
-sudo scutil --set LocalHostName "bumble"
-sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "bumble"
+sudo scutil --set ComputerName "bumble-work"
+sudo scutil --set HostName "bumble-work"
+sudo scutil --set LocalHostName "bumble-work"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "bumble-work"
 
 # Set standby delay to 24 hours (default is 1 hour)
 sudo pmset -a standbydelay 86400
@@ -108,6 +108,58 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
 # Disable smart dashes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+
+###############################################################################
+# Security                                                                    #
+###############################################################################
+
+# Enable auto updates
+sudo softwareupdate --schedule on
+
+# Disable AirDrop
+defaults write com.apple.NetworkBrowser DisableAirDrop -bool YES
+
+# Set time and date automatically
+sudo systemsetup setusingnetworktime on
+
+# Require a password to wake the computer from sleep or screen saver
+defaults write com.apple.screensaver askForPassword -int 1
+
+# Ensure screen locks immediately when requested
+defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+# Disable remote Apple Events
+sudo systemsetup -setremoteappleevents off
+
+# Disable remote login
+sudo systemsetup -f -setremotelogin off
+
+# Disable Wake on Network Access
+sudo systemsetup -setwakeonnetworkaccess off
+
+# Disbale Remote Management
+sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -deactivate -stop
+
+# Destroy File Vault Key when going to standby
+sudo pmset -a destroyfvkeyonstandby 1
+
+# Enable Gatekeeper
+sudo spctl --master-enable
+
+# Enable Firewall
+defaults write /Library/Preferences/com.apple.alf globalstate -int 1
+
+# Enable Firewall Stealth Mode
+/usr/libexec/ApplicationFirewall/socketfilterfw --setstealthmode on
+
+# Disable signed apps from being auto-permitted to listen through firewall
+defaults write /Library/Preferences/com.apple.alf allowsignedenabled -bool false
+
+# Disable IPv6
+networksetup -listallnetworkservices | while read i; do SUPPORT=$(networksetup -getinfo "$i" | grep "IPv6: Automatic") && if [ -n "$SUPPORT" ]; then networksetup -setv6off "$i"; fi; done;
+
+# Disable automatic loading of remote content by Mail.app
+defaults write com.apple.mail-shared DisableURLLoading -bool true
 
 ###############################################################################
 # SSD-specific tweaks                                                         #

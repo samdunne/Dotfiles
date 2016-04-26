@@ -45,6 +45,7 @@ export VAGRANT_DEFAULT_PROVIDER="vmware_fusion"
 
 # Python
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+export WORKON_HOME=$HOME/.virtualenvs
 
 # Perl related exports
 export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB+:}${PERL5LIB}"
@@ -52,3 +53,6 @@ export PERL_LOCAL_LIB_ROOT="$HOME/perl5${PERL_LOCAL_LIB_ROOT+:}${PERL_LOCAL_LIB_
 export PERL_MB_OPT="--install_base \"$HOME/perl5\""
 export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
 export PERL_MM_USE_DEFAULT=1
+
+# Git export
+export GIT_SSH_COMMAND="cat ~/.ssh/config* > ~/.ssh/compilation && ssh -F ~/.ssh/compilation"

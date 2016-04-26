@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
 
 brew install python --with-brewed-openssl
-pip install virtualenv
+pip install virtualenv virtualenvwrapper
 
-source ~/.bashrc
+mkdir -p $HOME/.virtualenvs
 
-virtualenv ~/.virtualenvs/default
+source ~/.bash_profile
+
+mkvirtualenv default
+workon default
 pip install Pygments

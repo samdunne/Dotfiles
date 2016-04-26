@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
-git clone https://github.com/creationix/nvm.git ~/.nvm && cd ~/.nvm && git checkout `git describe --abbrev=0 --tags`
+brew install nvm
+mkdir -p $HOME/.nvm
 
-source ~/.bashrc
+source ~/.bash_profile
+
 nvm install 5.0
 nvm use 5.0
 nvm alias default node

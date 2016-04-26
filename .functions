@@ -15,51 +15,19 @@ function f() {
 	find . -name "$1"
 }
 
-# git log with per-commit cmd-clickable GitHub URLs (iTerm)
-function gf() {
-	local remote="$(git remote -v | awk '/^origin.*\(push\)$/ {print $2}')"
-	[[ "$remote" ]] || return
-	local user_repo="$(echo "$remote" | perl -pe 's/.*://;s/\.git$//')"
-	git log $* --name-status --color | awk "$(cat <<AWK
-		/^.*commit [0-9a-f]{40}/ {sha=substr(\$2,1,7)}
-		/^[MA]\t/ {printf "%s\thttps://github.com/$user_repo/blob/%s/%s\n", \$1, sha, \$2; next}
-		/.*/ {print \$0}
-AWK
-	)" | less -F
-}
-
 # Copy w/ progress
-cp_p () {
+function cp_p () {
 	rsync -WavP --human-readable --progress $1 $2
 }
 
-sshSecureKeygen() {
+function sshSecureKeygen() {
 	ssh-keygen -b 4096 -f ~/.ssh/id_rsa_$1 -C sam@$1_4096
-}
-
-# Syntax-highlight JSON strings or files
-function json() {
-	if [ -p /dev/stdin ]; then
-		# piping, e.g. `echo '{"foo":42}' | json`
-		python -mjson.tool | pygmentize -l javascript
-	else
-		# e.g. `json '{"foo":42}'`
-		python -mjson.tool <<< "$*" | pygmentize -l javascript
-	fi
 }
 
 # take this repo and copy it to somewhere else minus the .git stuff.
 function gitexport(){
 	mkdir -p "$1"
 	git archive master | tar -x -C "$1"
-}
-
-# get gzipped size
-function gz() {
-	echo "orig size    (bytes): "
-	cat "$1" | wc -c
-	echo "gzipped size (bytes): "
-	gzip -c "$1" | wc -c
 }
 
 # All the dig info
@@ -173,37 +141,4 @@ function vagrant-global-destroy() {
 function vagrant-rage() {
 	berksderp
 	vagrant up
-}
-
-function vagrant-box-update-all() {
-	# Find all boxes which have updates
-	AVAILABLE_UPDATES=`vagrant box outdated --global | grep outdated | tr -d "*'" | cut -d ' ' -f 2`
-
-	if [ ! ${#AVAILABLE_UPDATES[@]} -eq 0 ]; then
-	  for box in $AVAILABLE_UPDATES ; do
-
-	    echo "Found an update for $box"
-
-	    # Find all current versions
-	    VERSIONS=`vagrant box list | grep $box | cut -d ',' -f 2 | tr -d ' )'`
-
-	    # Add latest version
-	    vagrant box add --clean $box
-
-	    # Remove all old versions
-	    for version in $VERSIONS ; do
-	      vagrant box remove $box -f --box-version=$version
-	    done
-
-	  done
-
-	  echo "All boxes are now up to date!"
-
-	else
-
-	  echo "All boxes are already up to date!"
-
-	fi
-
-	vagrant box outdated --global
 }

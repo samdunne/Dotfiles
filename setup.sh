@@ -6,12 +6,16 @@ sudo -v
 xcode-select --install
 xcrun cc
 
+# Install the appropriate bash files
+chmod a+x sync.sh
+/usr/bin/env bash sync.sh -f
+
 find ./setup -name "*.sh" | while read -r script
 do
   chmod a+x "$script"
   /usr/bin/env bash "$script"
 done
 
-# Install the appropriate bash files
-chmod a+x sync.sh
-/usr/bin/env bash sync.sh -f
+apm install --packages-file setup/packages-atom.txt
+
+source ~/.bash_profile

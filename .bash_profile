@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-source /usr/local/share/gem_home/gem_home.sh
-source /usr/local/share/chruby/chruby.sh
-source /usr/local/share/chruby/auto.sh
+source /usr/local/opt/gem_home/share/gem_home/gem_home.sh
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
 
 chruby ruby-2.2
 

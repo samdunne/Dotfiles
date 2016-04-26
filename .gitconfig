@@ -126,6 +126,9 @@
 
 # URL shorthands
 
+[url "https://"]
+    insteadOf = git://
+
 [url "git@github.com:"]
 
 	insteadOf = "gh:"
@@ -148,4 +151,7 @@
 
 [user]
   name = "Sam Dunne"
-  email = "sam@sam-dunne.com"
+	signingkey = 0x02E4FD6BF70083E7
+
+[commit]
+	gpgsign = true

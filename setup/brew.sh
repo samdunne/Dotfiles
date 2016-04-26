@@ -94,6 +94,7 @@ packages=(
   'imagemagick'
   'isl'
   'jpeg'
+  'jq'
   'lame'
   'lesstif'
   'libevent'
@@ -155,7 +156,11 @@ packages=(
 )
 
 casks=(
+  '1password'
   'atom'
+  'charles'
+  'caffeine'
+  'google-chrome'
   'chefdk'
   'consul'
   'dropbox'
@@ -163,9 +168,9 @@ casks=(
   'packer'
   'virtualbox'
   'vlc'
-  '1password'
   'iterm2'
   'spotify'
+  'slack'
   'the-unarchiver'
   'viscosity'
   'wireshark'
@@ -173,6 +178,10 @@ casks=(
   'tigervnc-viewer'
   'vmware-fusion'
 )
+
+# These are pre-requisites for certain software
+brew install Caskroom/cask/java
+brew install Caskroom/cask/xquartz
 
 for i in "${taps[@]}"
 do
@@ -188,5 +197,3 @@ for i in "${casks[@]}"
 do
   brew cask install "$i"
 done
-
-apm install --packages-file setup/packages-atom.txt
