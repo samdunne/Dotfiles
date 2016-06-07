@@ -6,16 +6,18 @@ git pull origin master;
 
 function run() {
 	rsync --exclude-from .sync-ignore -avh --no-perms . ~;
-	. ~/.bash_profile;
+	source ~/.bash_profile;
 }
 
 if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
 	run;
 else
-	read -pr "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
-	echo "";
-	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		run;
-	fi;
+	echo "This may overwrite existing files in your home directory. Are you sure? (y/n)";
+  select yn in "y" "n"; do
+    case $yn in
+      y ) run; break;;
+      n ) exit;;
+    esac
+  done
 fi;
 unset run;

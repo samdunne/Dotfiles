@@ -5,11 +5,6 @@ function md() {
 	mkdir -p "$@" && $(cd "$@" || exit)
 }
 
-# cd into whatever is the forefront Finder window.
-cdf() {  # short for cdfinder
-	cd "`osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)'`"
-}
-
 # find shorthand
 function f() {
 	find . -name "$1"
@@ -20,14 +15,14 @@ function cp_p () {
 	rsync -WavP --human-readable --progress $1 $2
 }
 
-function sshSecureKeygen() {
+function ssh-key() {
 	ssh-keygen -b 4096 -f ~/.ssh/id_rsa_$1 -C sam@$1_4096
 }
 
 # take this repo and copy it to somewhere else minus the .git stuff.
 function gitexport(){
 	mkdir -p "$1"
-	git archive master | tar -x -C "$1"
+	git archive $(git rev-parse --abbrev-ref HEAD) | tar -x -C "$1"
 }
 
 # All the dig info
@@ -104,6 +99,7 @@ function update() {
 	brew update
 	brew upgrade
 	brew cleanup
+  brew prune
 	brew cask cleanup
 
 	# Ruby gems

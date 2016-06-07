@@ -9,7 +9,7 @@ export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 # nvm
 export NVM_DIR="$HOME/.nvm"
 
-. "$(brew --prefix nvm)/nvm.sh"
+source "$(brew --prefix nvm)/nvm.sh"
 
 # npm
 export PATH="$HOME/.node/bin:$PATH"
@@ -27,4 +27,7 @@ export PATH="/Applications/VMware\ Fusion.app/Contents/Library:$PATH"
 export PATH="/opt/chefdk/bin:$PATH"
 
 # Perl
-export PATH="$HOME/perl5/bin:$PATH"
+export PATH="$HOME/.perl/bin:$PATH"
+
+# Groovy
+export GROOVY_HOME="$(brew --prefix groovy)/libexec"
