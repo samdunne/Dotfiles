@@ -31,3 +31,7 @@ export PATH="$HOME/.perl/bin:$PATH"
 
 # Groovy
 export GROOVY_HOME="$(brew --prefix groovy)/libexec"
+
+# Go
+export PATH="$GOPATH/bin:$PATH"
+export PATH="$GOROOT/bin:$PATH"

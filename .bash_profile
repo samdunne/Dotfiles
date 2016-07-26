@@ -3,15 +3,18 @@
 source $(brew --prefix gem_home)/share/gem_home/gem_home.sh
 source $(brew --prefix chruby)/share/chruby/chruby.sh
 source $(brew --prefix chruby)/share/chruby/auto.sh
+source $(brew --prefix autoenv)/activate.sh
 
-chruby ruby-2.2
+if which chruby > /dev/null; then
+  chruby ruby-2.2
+fi
 
 # Add ~/bin
 export PATH="$HOME/.bin:$PATH";
 
 # Load ~/.paths, ~/.extra, ~/.bash_prompt, ~/.exports, ~/.aliases and ~/.functions
 # ~/.extra can be used for settings you don’t want to commit
-for file in ~/.{paths,extra,bash_prompt,exports,aliases,functions}; do
+for file in ~/.{paths,extra,bash_prompt,exports,aliases,functions,aws_credentials}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;

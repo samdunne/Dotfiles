@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-brew install python --with-brewed-openssl
-pip install virtualenv virtualenvwrapper
+brew install python pyenv-virtualenvwrapper --with-brewed-openssl
 
 mkdir -p $HOME/.virtualenvs
 
